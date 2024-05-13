@@ -19,7 +19,7 @@ const BookList = () => {
             {
                 method: "GET",
                 headers: {
-                    Authorization: "KakaoAK 516c75723d3854ab75f70e5e09d96f5b",
+                    Authorization: `KakaoAK ${process.env.REACT_APP_API_KEY}`,
                 },
             }
         );
@@ -30,11 +30,8 @@ const BookList = () => {
             ? data.meta.pageable_count / 10 + 1
             : data.meta.pageable_count / 10;
         pageCount.current = Math.floor(pageCount.current);
+        pageCount.current = 15 ? 15 : pageCount.current;
         console.log(pageCount.current);
-
-        if (pageCount.current >= 15) {
-            pageCount.current = 15;
-        }
 
         setBookList(data.documents);
     }
