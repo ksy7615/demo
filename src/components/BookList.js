@@ -107,16 +107,8 @@ const BookList = () => {
             <HStack>
                 {Array.from({ length: pageCount.current }, (_, index) => (
                     <>
-                        <Button
-                            buttonScheme={
-                                page === index + 1 ?
-                                    'red' : 'blackAlpha'
-                            }
-                            onClick={e => {
-                                setPage(index + 1);
-                            }}
-                        >
-                            {index + 1}
+                        <Button colorScheme={page === index + 1 ? "cyan" : buttonScheme}
+                            onClick={e => { setPage(index + 1) }}>{index + 1}
                         </Button>
                     </>
                 ))}
