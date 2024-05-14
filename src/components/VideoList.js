@@ -6,12 +6,12 @@ import { Box, HStack } from '@chakra-ui/react'
 import { MdOndemandVideo } from "react-icons/md";
 import { AiFillMoon, AiFillSun } from 'react-icons/ai';
 
-const BookList = () => {
+const VideoList = () => {
 
     // useEffect가 어떻게 동작하는 지 State로 확인
     // useState 는 화면 랜더링에 반영됨 >> 그렇다고 이것만 쓰면 리랜더링의 장점 X
     // 그럴거면 뭐하러 리액트를 쓰냐함
-    const [BookList, setBookList] = useState([]);
+    const [VideoList, setVideoList] = useState([]);
     // 디폴트 값을 useState로 설정해주는거임
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('달고나 커피');
@@ -44,7 +44,7 @@ const BookList = () => {
         pageCount.current = 15 ? 15 : pageCount.current;
         console.log(pageCount.current);
 
-        setBookList(data.documents);
+        setVideoList(data.documents);
     }
     // 페이지 바꿈으로 인해 current가 바뀌었고
     // useEffect 써서 그 이후로는 바뀌지가 않고 있다?
@@ -89,7 +89,7 @@ const BookList = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {BookList.map((book, index) => (
+                        {VideoList.map((book, index) => (
                             <>
                                 <Tr>
                                     <Td> {(page - 1) * 10 + index + 1} </Td>
@@ -123,4 +123,4 @@ const BookList = () => {
 <p>도서 타이틀2</p>
 <p>도서 타이틀3</p>
  */
-export default BookList;
+export default VideoList;
