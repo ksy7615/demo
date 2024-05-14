@@ -4,18 +4,18 @@ import { Button, Icon, IconButton, Table, TableContainer, Tbody, Td, Tfoot, Th, 
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, HStack } from '@chakra-ui/react'
 import { Image } from '@chakra-ui/react'
-import { MdOndemandVideo } from "react-icons/md";
+import { FaRegBookmark } from "react-icons/fa";
 import { AiFillMoon, AiFillSun } from 'react-icons/ai';
 
-const VideoList = () => {
+const RecommendBookList = () => {
 
     // useEffect가 어떻게 동작하는 지 State로 확인
     // useState 는 화면 랜더링에 반영됨 >> 그렇다고 이것만 쓰면 리랜더링의 장점 X
     // 그럴거면 뭐하러 리액트를 쓰냐함
-    const [VideoList, setVideoList] = useState([]);
+    const [RecommendBookList, setRecommendBookList] = useState([]);
     // 디폴트 값을 useState로 설정해주는거임
     const [page, setPage] = useState(1);
-    const [search, setSearch] = useState('달고나 커피');
+    const [search, setSearch] = useState('멋진 신세계');
 
     // useRef 는 화면 랜더링 반영되지 않는 참조값
     const pageCount = useRef(1);
@@ -27,7 +27,7 @@ const VideoList = () => {
 
     const fetchBooks = async () => {
         const response = await fetch(
-            `https://dapi.kakao.com/v2/search/vclip?query=${search}&page=${page}`,
+            `https://dapi.kakao.com/v3/search/book?query=${search}&page=${page}`,
             {
                 method: "GET",
                 headers: {
@@ -45,7 +45,7 @@ const VideoList = () => {
         pageCount.current = 15 ? 15 : pageCount.current;
         console.log(pageCount.current);
 
-        setVideoList(data.documents);
+        setRecommendBookList(data.documents);
     }
     // 페이지 바꿈으로 인해 current가 바뀌었고
     // useEffect 써서 그 이후로는 바뀌지가 않고 있다?
@@ -53,22 +53,14 @@ const VideoList = () => {
     // 연쇄적인 동작을 하며 fetch가 같이 호출
     useEffect(() => {
         fetchBooks();
-    }, [page, search])
+    }, [page])
     // ↑ 변화하고 있는 fetch(page, search)에 대한 종속성 부여
-
-    const changeSearch = e => {
-        // 내용 작성
-        if (e.target.value !== '') {
-            setSearch(e.target.value);
-            setPage(1);
-        }
-    }
 
     return (
         <>
             <Box>
                 <Heading color={color}>
-                    <Icon as={MdOndemandVideo} boxSize={"1.5em"} /> 동영상 검색 목록
+                    <Icon as={FaRegBookmark} boxSize={"1.5em"} />오늘의 추천 도서
                 </Heading>
 
                 {
@@ -77,35 +69,32 @@ const VideoList = () => {
                         <IconButton icon={<AiFillSun />} onClick={toggleColorMode} />
                 }
 
-                <Input type="text" placeholder='검색어 입력' onChange=
-                    {changeSearch} size="lg" variant="filled" />
             </Box>
             <TableContainer>
                 <Table varient={"striped"} colorScheme="teal">
                     <Thead>
                         <Tr>
                             <Th>No</Th>
+                            <Th>Image</Th>
                             <Th>Title</Th>
                             <Th>Author</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {VideoList.map((book, index) => (
+                        {RecommendBookList.map((book, index) => (
                             <>
                                 <Tr>
                                     <Td> {(page - 1) * 10 + index + 1} </Td>
-                                    <Box>
-                                        <a href={book.url}>
+                                    <Box boxSize='sm'>
                                             <Image
-                                                boxSize='200px'
+                                                boxSize='300px'
                                                 src={book.thumbnail}
                                             />
-                                        </a>
                                     </Box>
                                     <Td>
                                         <a href={book.url}>{book.title}</a>
                                     </Td>
-                                    <Td>{book.author}</Td>
+                                    <Td>{book.authors}</Td>
                                 </Tr>
                             </>
                         ))}
@@ -126,4 +115,4 @@ const VideoList = () => {
     );
 };
 
-export default VideoList;
+export default RecommendBookList;
