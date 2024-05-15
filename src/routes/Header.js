@@ -1,4 +1,4 @@
-import { HStack, Heading } from '@chakra-ui/react';
+import { HStack, Heading, Icon } from '@chakra-ui/react';
 import { Button } from '@chakra-ui/react';
 import {
     Menu,
@@ -8,12 +8,20 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 const Header = () => {
     return (
         <>
-            <Heading>검색 서비스</Heading>
-            <HStack justifyContent={"space-between"}>
+            <HStack justifyContent={"center"}>
+                <Heading textAlign={"center"} size={"xl"} m={"20px"} color={"red.500"}>
+                    <Link to={"/"}>
+                        <Icon as={FaSearch} />
+                        검색 서비스
+                    </Link>
+                </Heading>
+            </HStack>
+            <HStack justifyContent={"center"}>
                 <HStack>
                     <Button>
                         <Link to={"/"}>Home</Link>
