@@ -30,7 +30,6 @@ const router = createBrowserRouter([
             },
             {
                 path: "/video",
-                element: <Root />,
                 children: [
                     {
                         path: "/video/list",
@@ -44,7 +43,6 @@ const router = createBrowserRouter([
             },
             {
                 path: "/book",
-                element: <Root />,
                 children: [
                     {
                         path: "/book/list",
@@ -61,6 +59,5 @@ const router = createBrowserRouter([
 ], {
     basename: "/demo"
 });
-
 
 export default router;
